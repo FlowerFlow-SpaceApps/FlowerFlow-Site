@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Images{% endblock %}
+{% block styles %}
+    <style>
+        .month {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .row {
+            align-items: center;
+            display: block;
+            gap: 1rem;
+        }
+        .row img {
+            width: 23%;
+            height: auto;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% for month in images %}
+        <div class="month">
+            <h2>{{month['date']}}</h2>
+            <div class="row">
+                {% for filename in (month['types']['rgb'], month['types']['nvdi'], month['types']['masked']) %}
+                    <img src="{{ url_for('static', filename='images/' ~ filename) }}" alt="{{ img }}">
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
